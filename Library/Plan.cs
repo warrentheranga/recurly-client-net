@@ -413,7 +413,8 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Plan> List(FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            if (filter == null)
+                filter = FilterCriteria.Instance;
             return new PlanList(Plan.UrlPrefix + "?" + filter.ToNamedValueCollection().ToString());
         }
 

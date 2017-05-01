@@ -196,7 +196,8 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode, FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            if (filter == null)
+                filter = FilterCriteria.Instance;
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + filter.ToNamedValueCollection().ToString());
         }
     }

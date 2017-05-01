@@ -558,7 +558,8 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Account> List(Account.AccountState state, FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            if (filter == null)
+                filter = FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
             parameters["state"] = state.ToString().EnumNameToTransportCase();
             return new AccountList(Account.UrlPrefix + "?" + parameters.ToString());

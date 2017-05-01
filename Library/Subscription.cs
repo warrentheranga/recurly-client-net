@@ -915,7 +915,8 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            if (filter == null)
+                filter = FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
             parameters["state"] = state.ToString().EnumNameToTransportCase();
             return new SubscriptionList(Subscription.UrlPrefix + "?" + parameters.ToString());
